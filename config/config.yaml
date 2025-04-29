@@ -1,0 +1,211 @@
+# config.yaml
+# === Subject info ===
+subinfo_fields:
+  - name: subject_id
+    type: int
+    constraints:
+      min: 101
+      max: 999
+      digits: 3
+
+  - name: session_name
+    type: string
+
+  - name: experimenter
+    type: string
+
+  - name: gender
+    type: choice
+    choices: [Male, Female]
+
+subinfo_mapping:
+    subject_id: "被试号"
+    session_name: "Session名称(Practice/Experiment)"
+    experimenter: "主试姓名或缩写"
+    gender: "性别"
+    Male: "男"
+    Female: "女"
+    registration_failed: "注册失败。"
+    registration_successful: "注册成功！"
+    invalid_input: "字段 {field} 输入无效。"
+
+
+# === Window settings ===
+window:
+  size: [1920, 1080]
+  monitor: testMonitor
+  units: deg
+  screen: 1
+  bg_color: gray
+  fullscreen: True
+
+# === Task-level settings ===
+task:
+  total_blocks: 2
+  total_trials: 10
+  trial_per_block: 5
+  conditions: [blue, yellow, orange]
+  pump_key: space
+  cash_key: right
+  
+  seed_mode: "same_across_sub"
+  blue_max_pumps: 24
+  blue_delta: 5
+  orange_max_pumps: 12
+  orange_delta: 10
+  yellow_max_pumps: 6
+  yellow_delta: 20
+  max_balloon_scale: 1
+  initial_balloon_scale: 0.2
+  balloon_size_deg: [4,5]
+
+
+# === Stimuli (for MID task) ===
+stimuli:
+  fixation:
+    type: text
+    text: "+"
+    color: black
+
+  blue_balloon:
+    type: image
+    image: ./assets/blue_balloon.png
+
+  yellow_balloon:
+    type: image
+    image: ./assets/yellow_balloon.png
+
+  orange_balloon:
+    type: image
+    image: ./assets/orange_balloon.png
+
+  blue_pop:
+   type: image
+   image: ./assets/blue_pop.png
+
+  yellow_pop:
+    type: image
+    image: ./assets/yellow_pop.png
+
+  orange_pop:
+    type: image
+    image: ./assets/orange_pop.png
+
+  cash_screen:
+    type: text
+    text: "CASH"
+    color: green
+
+  timeout_screen: 
+    type: text
+    text: "TIMEOUT"
+    color: red
+
+  pop_sound:
+    type: sound
+    file: ./assets/pop.ogg
+  
+  
+  cash_sound:
+    type: sound
+    file: ./assets/cash_fixed.ogg
+
+
+  
+  block_break:
+    type: text
+    text: |
+      第 {block_num} / {total_blocks} 部分完成
+      击中率：{accuracy:.2f}
+      总分：{total_score}
+      
+      请在充分休息后按下空格键
+      进入下一个部分
+    color: white
+
+
+
+  instruction_text:
+    type: textbox
+    text: |
+      【BART任务】
+
+      随后，您需要在目标出现时尽快按下指定按键。
+      击中目标可能获得奖励或避免失分，
+      未击中则可能失去奖励或扣分。
+
+      请尽量快速而准确地作出反应！
+ 
+    color: black
+    font: SimHei
+    alignment: center
+    letterHeight: 0.78
+ 
+  win_feedback:
+    type: text
+    text: 
+      获得：{fb_score}分
+    color: green
+  
+   
+  lose_feedback:
+    type: text
+    text: 
+      获得：{fb_score}分
+    color: red
+
+
+  good_bye:
+    type: text
+    text: |
+      任务结束
+      最后得分:{total_score}
+      感谢您的参与
+      请按【空格键】键退出
+    color: white
+
+
+# === Timing & Adaptivity ===
+timing:
+  fixation_duration: 0.8
+  response_feedback_duration: 1
+  balloon_duration: 1.5
+  feedback_duration: 1
+  
+  
+
+
+
+triggers:
+
+  blue_pop:           31
+  blue_cash:          32
+  blue_timeout:       33
+  blue_pump_press:    34
+  blue_cash_press:    35
+  blue_balloon_onset: 36
+
+  orange_pop:           21
+  orange_cash:          22
+  orange_timeout:       23
+  orange_pump_press:    24
+  orange_cash_press:    25
+  orange_balloon_onset: 26
+
+  yellow_pop:           11
+  yellow_cash:          12
+  yellow_timeout:       13
+  yellow_pump_press:    14
+  yellow_cash_press:    15
+  yellow_balloon_onset: 16
+
+  exp_onset: 98
+  exp_end: 99
+
+  block_onset: 100
+  block_end: 101
+
+  fixation_onset: 1
+  feedback_onset:     50
+
+
