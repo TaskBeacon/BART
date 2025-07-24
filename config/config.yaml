@@ -8,11 +8,15 @@ subinfo_fields:
       max: 999
       digits: 3
 
-  - name: session_name
+
+  - name: subname    
     type: string
 
-  - name: experimenter
-    type: string
+  - name: age 
+    type: int
+    constraints:
+      min: 5
+      max: 60
 
   - name: gender
     type: choice
@@ -20,27 +24,29 @@ subinfo_fields:
 
 subinfo_mapping:
     subject_id: "被试号"
-    session_name: "Session名称(Practice/Experiment)"
-    experimenter: "主试姓名或缩写"
+    subname: "被试姓名(拼音)"
+    age: "年龄"
     gender: "性别"
     Male: "男"
     Female: "女"
     registration_failed: "注册失败。"
     registration_successful: "注册成功！"
-    invalid_input: "字段 {field} 输入无效。"
+    invalid_input: "字段 {field} 输入无效"
 
 
 # === Window settings ===
 window:
   size: [1920, 1080]
-  monitor: testMonitor
   units: deg
   screen: 1
   bg_color: gray
   fullscreen: True
+  monitor_width_cm: 60
+  monitor_distance_cm: 72
 
 # === Task-level settings ===
 task:
+  task_name: eeg_BART
   total_blocks: 2
   total_trials: 10
   trial_per_block: 5
@@ -51,10 +57,10 @@ task:
   seed_mode: "same_across_sub"
   blue_max_pumps: 24
   blue_delta: 5
-  orange_max_pumps: 12
-  orange_delta: 10
-  yellow_max_pumps: 6
-  yellow_delta: 20
+  orange_max_pumps: 6
+  orange_delta: 20
+  yellow_max_pumps: 12
+  yellow_delta: 10
   max_balloon_scale: 1
   initial_balloon_scale: 0.2
   balloon_size_deg: [4,5]
@@ -65,7 +71,7 @@ stimuli:
   fixation:
     type: text
     text: "+"
-    color: black
+    color: white
 
   blue_balloon:
     type: image
@@ -93,12 +99,12 @@ stimuli:
 
   cash_screen:
     type: text
-    text: "CASH"
+    text: "拿走分数"
     color: green
 
   timeout_screen: 
     type: text
-    text: "TIMEOUT"
+    text: "请及时按键"
     color: red
 
   pop_sound:
@@ -116,7 +122,6 @@ stimuli:
     type: text
     text: |
       第 {block_num} / {total_blocks} 部分完成
-      击中率：{accuracy:.2f}
       总分：{total_score}
       
       请在充分休息后按下空格键
@@ -130,13 +135,24 @@ stimuli:
     text: |
       【BART任务】
 
-      随后，您需要在目标出现时尽快按下指定按键。
-      击中目标可能获得奖励或避免失分，
-      未击中则可能失去奖励或扣分。
+      欢迎参与本次任务！
 
-      请尽量快速而准确地作出反应！
+      您的目标是尽可能多地为气球充气来获得分数。
+      每按一次【空格键】，气球就会变大一点，您累积的分数也会增加。
+
+      但是，气球随时都可能爆炸！
+      如果气球爆炸，您在当前气球上累积的所有分数都将清零。
+
+      您可以随时按【向右箭头】拿走分数，
+      将当前气球累积的分数存入您的总分中，然后进入下一个气球。
+
+      不同颜色的气球，爆炸的风险可能不同。
+      请您在追求高分和避免风险之间做出权衡。
+
+      按【空格键】开始游戏，
+      祝您好运！
  
-    color: black
+    color: white
     font: SimHei
     alignment: center
     letterHeight: 0.78
@@ -169,7 +185,7 @@ stimuli:
 timing:
   fixation_duration: 0.8
   response_feedback_duration: 1
-  balloon_duration: 1.5
+  balloon_duration: 2
   feedback_duration: 1
   
   
@@ -206,6 +222,6 @@ triggers:
   block_end: 101
 
   fixation_onset: 1
-  feedback_onset:     50
+  feedback_onset: 50
 
 
